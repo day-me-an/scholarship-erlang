@@ -1,6 +1,7 @@
 -module (scholarship).
 -define (CACHE_FILE, "cache.dat").
--export ([arrange/1, init/0, piles/1, move/1, repeated/2, play/1, game/1]).
+-define (DEFAULT_COINS, 36).
+-export ([arrange/1, init/0, piles/1, move/1, repeated/2, play/1, game/1, game/0]).
 
 init() ->
 	dets:open_file(?CACHE_FILE, []).
@@ -61,4 +62,4 @@ game(MaxCoins, Coins) ->
 	game(MaxCoins, Coins + 1).
 
 game(MaxCoins) -> game(MaxCoins, 1).
-
+game() -> game(?DEFAULT_COINS).
