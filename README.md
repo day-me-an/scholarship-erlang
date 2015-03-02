@@ -1,6 +1,6 @@
 # scholarship-erlang
 
-This is the first non-trivial program I've written in a ~~purely~~ primarily functional language. It took about an afternoon.
+This is the first non-trivial program I've written in purely functional code. It took about an afternoon.
 
 To learn Erlang I decided to try and port an old program I wrote that won a prize a few years ago.
 
