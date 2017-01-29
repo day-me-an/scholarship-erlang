@@ -7,25 +7,25 @@ init() ->
 	dets:open_file(?CACHE_FILE, []).
 
 
-piles(COINS) when COINS > 1 ->
-	[{COINS - X, X} || X <- lists:seq(1, COINS div 2)].
+piles(Coins) when Coins > 1 ->
+	[{Coins - X, X} || X <- lists:seq(1, Coins div 2)].
 
 
 arrange(1) -> [[1]];
-arrange(COINS) when COINS > 1 ->
-	case dets:lookup(?CACHE_FILE, COINS) of
+arrange(Coins) when Coins > 1 ->
+	case dets:lookup(?CACHE_FILE, Coins) of
 		[] ->
-			Orderings = lists:foldl(fun arrange/2, [[COINS]], piles(COINS)),
-			dets:insert(?CACHE_FILE, {COINS, Orderings}),
+			Orderings = lists:foldl(fun arrange/2, [[Coins]], piles(Coins)),
+			dets:insert(?CACHE_FILE, {Coins, Orderings}),
 			Orderings;
-		[{COINS, Orderings}] ->
+		[{Coins, Orderings}] ->
 			Orderings
 	end.
 
-arrange({LEFT, RIGHT}, Positions) ->
+arrange({Left, Right}, Positions) ->
 	Positions 
 	++
-	[LEFT_ALTERNATE ++ [RIGHT] || LEFT_ALTERNATE <- arrange(LEFT), RIGHT =< lists:last(LEFT_ALTERNATE)].
+	[LeftAlternate ++ [Right] || LeftAlternate <- arrange(Left), Right =< lists:last(LeftAlternate)].
 
 
 move(Ordering) when length(Ordering) > 0 ->	
